@@ -1,248 +1,94 @@
 <!DOCTYPE html>
-<!-- http://www.imooc.com/code/8908 -->
 <html>
+
 <head>
-	<title>七夕言情</title>
-	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="css/pageA.css">
-	<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
-	<script type="text/javascript" src="http://img.mukewang.com/down/55ac9ea30001ace700000000.js"></script>
-	<script type="text/javascript" src="Swipe.js"></script>
-	<script type="text/javascript" src="BoyWalk.js"></script>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>七夕主题</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pageA.css">
+    <link rel="stylesheet" href="css/pageB.css">
+    <link rel="stylesheet" href="css/pageC.css">
+    
+    
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.transit.min.js"></script> 
+  	<script type="text/javascript" src="js/Qixi.js"></script>
+  	<script type="text/javascript" src="js/Swipe.js"></script>
 </head>
-<style type="text/css">
-	/*div {
-		background-color: yellow;\
-		width: 200px;
-		height: 200px;
-		text-align: center;
-		border: 2px solid red;
-		margin: 3px;
-		font-size: 14px;
-	}
-	#block3, #block4 {
-		background-color: #CAE1FF;
-	}
-	button {
-		font-size: 14px;
-	}*/
-</style>
 
 <body>
-
-	<div id="content">
-		<ul class="content-wrap">
-			
-			<li>
-				<div class="a_background">
-					<div class="a_background_top"></div>
-					<div class="a_background_middle"></div>
-					<div class="a_background_bottom"></div>
-				</div>
-			</li>
-			
-			<li>页面二</li>
-			
-			<li>页面三</li>
-		</ul>
-
-		<div id="boy" class="character slowWalk"></div>
-		<div class="button">
-			<button>开始</button>
-		</div>
-	</div>
-	<script type="text/javascript">
-		$(function() {
-			var container = $("#content");
-			var swipe = Swipe(content);
-
-			// 小男孩走路
-			var boy = BoyWalk();
-			
-			// 开始
-			$("button:first").click(function() {
-				// 
-				boy.walkTo(2000, 0.2)
-				.then(function() {
-					// 第一次走路完成
-					boy.setColoer('red')
-				})
-			});
-		});
-	</script>
-	<!-- 
-	 <button>点击测试回调处理</button>
-	 <button>点击测试$.Deferred处理</button>
-	 <br />
-	 <br />
-	 <div id="block1">block1执行动画</div>
-	 <div id="block2">block2执行动画</div>
-	 <div id="block3">block3执行动画</div>
-	 <div id="block4">block4执行动画</div>
-	 <script type="text/javascript">
-	 	$('button:first').click(function() {
-	 		$('#block1').animate({
-	 			width: "50%"
-	 		}, 2000, function() {
-	 			$('#block2').animate({
-	 				width: "50%"
-	 			}, 2000);
-	 		});
-	 	});
-
-	 	$('button:last').click(function() {
-	 		function animate1() {
-	 			// 生成Deferred对象
-	 			var dtd = $.Deferred();
-	 			$('#block3').animate({
-	 				width: "50%"
-	 			}, 2000, function() {
-	 				// 改变Deferred对象的执行状态
-	 				dtd.resolve();
-	 			});
-	 			return dtd;
-	 		}
-
-	 		function animate2() {
-	 			var dtd = $.Deferred();
-
-	 			$('#block4').animate({
-	 				width: "50%"
-	 			}, 2000, function() {
-	 				dtd.resolve();
-	 			});
-
-	 			return dtd;
-	 		}
-
-	 		var anim = animate1();
-
-	 		anim.then(function() {
-	 			$('#block3').text('block3动画动画直接结束');
-	 			return animate2();
-	 		})
-	 		.then(function() {
-	 			$("#block4").text('block4动画动画直接结束');
-	 		});
-	 	});
-	 </script> -->
-<!-- 
-	<script type="text/javascript">
-		var swipe = Swipe($("#content"));
-
-		// // 绑定一个事件
-		// $('button').click(function() {
-		// 	// 调用接口
-		// 	swipe.scrollTo($("#content").width()*2, 5000);
-		// });
-
-		// 获取数据
-		var getValue = function(className) {
-			var $elem = $('' + className + '');
-			// 走路的路线坐标
-			return {
-				height: $elem.height(),
-				top: $elem.position().top
-			};
-		}
-
-		// 路的Y轴
-		var pathY = function() {
-			var data = getValue('.a_background_middle');
-			return data.top + data.height / 2;
-		}();
-
-		var $boy = $('#boy');
-		var boyHeight = $boy.height();
-
-		// 修正小男孩的正确位置
-		// 路得中间位置减去小孩的高度，25是一个修正值
-		$boy.css({
-			top: pathY - boyHeight + 25
-		});
-
-		// // 增加精灵动画
-		// $('button').click(function() {
-		// 	// // 增加走路的CSS3关键帧规则
-		// 	// $boy.addClass('slowWalk');
-		// 	// left的变化
-		// 	$boy.transition({
-		// 		'left': $('#content').width() + 'px',
-		// 	}, 10000, 'linear', function() {});
-		// });
-		 
-		// 3-4 运动的状态控制（ERROR）
-		// var time = 10000, startTime, runTime = 0;
-		// var isPause = true;
-
-		// $("button:first").click(function() {
-		// 	if (!isPause) {
-		// 		return;
-		// 	}
-		// 	isPause = false;
-		// 	startTime = Date.now();
-		// 	console.log("slowWalk startTime:", startTime);
-		// 	console.log("slowWalk time - runTime:", time - runTime);
-		// 	$boy.addClass('slowWalk').transition({
-		// 		'left': $("#content").width() + 'px',
-		// 		// transition: 'left' + (time - runTime) + 'ms',
-		// 	}, time - runTime).removeClass('pauseWalk');
-		// });
-
-		// $("button:last").click(function() {
-			
-		// 	if (isPause) {
-		// 		return false;
-		// 	}
-		// 	isPause = true;
-
-		// 	var left = $boy.css('left');
-		// 	// 强制做了一个改变目标left的处理
-		// 	// 动画是要运行10秒，所以此时动画还是没有结束的
-		// 	$boy.css('left', left);
-
-		// 	runTime += (Date.now() - startTime);
-		// 	console.log("pauseWalk runTime:", runTime);
-		// 	// 增加暂停的样式
-		// 	$boy.addClass('pauseWalk');
-		// });
-		
-		// 3-4 运动的状态控制
-		$("button:first").click(function() {
-			$boy.addClass('slowWalk').transition({
-				'left': $("#content").width() + 'px',
-			}, 10000).removeClass("pauseWalk");
-		});
-
-		$("button:last").click(function() {
-			var left = $boy.css('left');
-
-			// 强制做了一个改变目标left的处理
-			// 动画是要运行10秒，所以此时动画还是没有结束的
-			$boy.css('left', left);
-			// 增加暂停的样式
-			$boy.addClass('pauseWalk');
-		});
-	</script>
-	 -->
+    <div id='content'>
+        <ul class='content-wrap'>
+            <!-- 第一副画面 -->
+            <li>
+                <!-- 背景图 -->
+                <div class="a_background">
+                    <div class="a_background_top"></div>
+                    <div class="a_background_middle"></div>
+                    <div class="a_background_botton"></div>
+                </div>
+                <!-- 云 -->
+                <div class="cloudArea">
+                    <div class="cloud cloud1"></div>
+                    <div class="cloud cloud2"></div>
+                </div>
+                <!-- 太阳 -->
+                <div id="sun"></div>
+            </li>
+            <!-- 第二副画面 -->
+            <li>
+                <!-- 背景图 -->
+                <div class="b_background"></div>
+                <div class="b_background_preload"></div>
+                <!-- 商店 -->
+                <div class="shop">
+                    <div class="door">
+                        <div class="door-left"></div>
+                        <div class="door-right"></div>
+                    </div>
+                    <!-- 灯 -->
+                    <div class="lamp"></div>
+                </div>
+                <!-- 鸟 -->
+                <div class="bird"></div>
+            </li>
+            <!-- 第三副画面 -->
+            <li>
+                <!-- 背景图 -->
+                <div class="c_background">
+                    <div class="c_background_top"></div>
+                    <div class="c_background_middle"></div>
+                    <div class="c_background_botton"></div>                
+                </div>
+                <!-- 小女孩 -->
+                <div class="girl"></div>
+                <div class="bridge-bottom">
+                    <div class="water">
+                        <div id="water1" class="water_1"></div>
+                        <div id="water2" class="water_2"></div>
+                        <div id="water3" class="water_3"></div>
+                        <div id="water4" class="water_4"></div>
+                    </div>
+                </div>
+                <!-- 星星 -->
+                <ul class="stars">
+                    <li class="stars1"></li>
+                    <li class="stars2"></li>
+                    <li class="stars3"></li>
+                    <li class="stars4"></li>
+                    <li class="stars5"></li>
+                    <li class="stars6"></li>
+                </ul>
+                <!-- 慕课网logo图 -->
+                <div class="logo"></div>
+            </li>
+        </ul>
+        <!-- 雪花 -->
+        <div id="snowflake"></div>
+        <!-- 小男孩 -->
+        <div id="boy" class="charector"></div>
+    </div>
 </body>
-<!-- 
-<script type="text/javascript">
-
-$(function() {
-	// 开始
-	$("button:first").click(function() {
-		// 10秒钟，走到0.5 也就是页面中间位置
-		var distX = calculateDist('x', 0.5);
-		var distY = calculateDist('y', 0.5);
-		walkRun(10000, distX, distY);
-	});
-})
-
-</script>
- -->
-<script type="text/javascript" src="Swipe.js"></script>
-<script type="text/javascript" src="Qixi.js"></script>
 
 </html>
